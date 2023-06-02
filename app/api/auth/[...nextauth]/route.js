@@ -12,6 +12,7 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_SECRET,
     }),
   ],
+  secret:process.env.NEXTAUTH_SECRET,
   
   callbacks:{
     async session({ session }) {
@@ -29,7 +30,7 @@ const handler = NextAuth({
         if (!userExists) {
           await User.create({
             email: profile.email,
-            username: profile.name.replace(" ", "").toLowerCase(),
+            username: profile.name.replace(" ", "").toLowerCase(), //here deleting all the white spaces our username profile has 
             image: profile.picture
           });
         }
